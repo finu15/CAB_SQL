@@ -1,0 +1,45 @@
+Create TABLE flight(
+flight_no int primary key not null,
+flight_name varchar(50) not null,
+flight_description varchar(100) not null,
+flight_total_capacity int not null
+);
+
+create table passenger(
+id int primary key auto_increment,
+name varchar (50) not null,
+user_name varchar (50) not null unique,
+email varchar (50) not null unique,
+password varchar (50) not null unique,
+mobile int not null unique,
+address varchar (100) not null,
+dob date
+);
+
+create table flight_schedule(
+id int primary key auto_increment,
+flight_from varchar (50) not null,
+flight_to varchar (50) not null,
+flight_date date,
+flight_time time,
+cost int not null,
+flight_no int not null,
+constraint FK_flight_no foreign key (flight_no) 
+references flight(flight_no)
+);
+
+create table booked_ticket(
+ticket_no int not null unique,
+date_of_booking date,
+date_of_travel date,
+flight_no int not null,
+constraint FK_flight_no2 foreign key (flight_no) 
+references flight(flight_no),
+flight_from varchar (50) not null,
+flight_to varchar(50) not null,
+flight_time time,
+boarding_time time,
+flight_seat varchar(50) not null,
+passenger_id int not null,
+foreign key (passenger_id) REFERENCES passenger(id)
+);
