@@ -1,0 +1,54 @@
+CREATE TABLE cab(
+cab_id int primary key not null,
+cab_type varchar(50) not null,
+cab_model varchar(50) not null,
+license_plate varchar(50) not null unique,
+cab_total_capacity int not null
+);
+
+
+create table driver(
+driver_id int primary key not null,
+driver_name varchar (50),
+cab_id int not null,
+foreign key (cab_id) REFERENCES cab(cab_id),
+dob date,
+driver_licence_no varchar(50) not null,
+licence_expiry date not null,
+email varchar(30) not null,
+mobile int not null,
+address varchar (100) not null
+);
+
+
+create table passenger(
+passenger_id int primary key auto_increment,
+name varchar (50) not null,
+user_name varchar (50) not null unique,
+email varchar (50) not null unique,
+password varchar (50) not null unique,
+mobile int not null unique,
+address varchar (100) not null,
+dob date
+);
+
+
+create table cab_ride(
+ride_id int primary key auto_increment not null,
+cab_id int not null,
+foreign key (cab_id) REFERENCES cab(cab_id),
+ride_date date not null,
+ride_start_time time not null,
+ride_end_time time not null,
+ride_start_address varchar(100) not null,
+ride_end_address varchar(100) not null,
+ride_price int not null,
+passenger_id int not null,
+foreign key (passenger_id) REFERENCES passenger(passenger_id)
+);
+
+
+create table payment(
+payment_id int primary key auto_increment,
+payment_type varchar(15)
+);
